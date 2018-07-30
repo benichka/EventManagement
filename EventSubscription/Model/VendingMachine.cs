@@ -107,7 +107,7 @@ namespace EventSubscription.Model
         /// <param name="coffeeSlot">Coffee slot that raised the event.</param>
         private void HandleOutOfBeans(CoffeeSlot coffeeSlot)
         {
-            Console.WriteLine($"Vending machine {Name}: coffee {coffeeSlot.CoffeeName} reached it's minimum level.");
+            VendingMachineNotification?.Invoke(this, $"Vending machine {Name}: coffee {coffeeSlot.CoffeeName} reached its minimum level.");
         }
 
         /// <summary>
