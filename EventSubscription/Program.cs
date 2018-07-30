@@ -14,8 +14,7 @@ namespace EventSubscription
 
             // The program subscribes to the event VendingMachineNotification. That way,
             // the program will be notified whenever the machine wants to "speak" to it.
-            // TODO: step 2:
-            // make HandleVendingMachineNotification subscribes to the newly instanciated machine notification.
+            machine.VendingMachineNotification += HandleVendingMachineNotification;
 
             // Fill the machine with coffee!
             var coffee1 = new Coffee("Decaffeinato", "Arabica", "Colombia", Coffee.CoffeeStrength.Decaf);
@@ -55,8 +54,14 @@ namespace EventSubscription
             }
         }
 
-        // TODO: step 1:
-        // create the handler for the vending machine notification. Call it HandleVendingMachineNotification.
-        // Its only purpose is to write the message that the machine sent to the console.
+        /// <summary>
+        /// Event handling for the event VendingMachineNotification.
+        /// </summary>
+        /// <param name="vendingMachine">Vending machine that raised the event.</param>
+        /// <param name="message">The message that the vending machine sent.</param>
+        private static void HandleVendingMachineNotification(VendingMachine vendingMachine, string message)
+        {
+            Console.WriteLine(message);
+        }
     }
 }

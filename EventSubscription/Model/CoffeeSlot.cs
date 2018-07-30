@@ -103,7 +103,7 @@ namespace EventSubscription.Model
             }
             else
             {
-                throw new OutOfBeansException($"Slot {Number}: I can't make coffee anymore, I'm empty. Please refill!");
+                throw new OutOfBeansException($"Slot {Number} ({CoffeeName}): I can't make coffee anymore, I'm empty. Please refill!");
             }
         }
 
@@ -113,7 +113,7 @@ namespace EventSubscription.Model
         /// <returns>The coffee slot's information.</returns>
         public override string ToString()
         {
-            return $"Slot {Number}: " + Coffee.ToString();
+            return $"Slot {Number} ({CoffeeName}): " + Coffee.ToString();
         }
     }
 }
