@@ -4,7 +4,7 @@ using EventSubscription.Model;
 namespace EventSubscription
 {
     /// <summary>
-    /// Entry point
+    /// Entry point.
     /// </summary>
     class Program
     {
@@ -12,7 +12,7 @@ namespace EventSubscription
         {
             var machine = new VendingMachine("Machine in the hall");
 
-            // The program subscribe to the event VendingMachineNotification. That way,
+            // The program subscribes to the event VendingMachineNotification. That way,
             // the program will be notified whenever the machine wants to "speak" to it.
             machine.VendingMachineNotification += HandleVendingMachineNotification;
 
@@ -29,16 +29,16 @@ namespace EventSubscription
             machine.AddCoffeeSlot(slot2);
             machine.AddCoffeeSlot(slot3);
 
-            // Display the content of the machine
+            // Display the content of the machine.
             Console.WriteLine(machine.ToString());
 
-            // Make a few coffees
+            // Make a few coffees.
             for (int i = 0; i < 15; i++)
             {
                 Console.WriteLine($"=============== iteration {i} ===============");
 
                 // At the 10th coffee (the limit is 5 by default), the event OutOfBeans will be raised
-                // and the method machine.HandleOutOfBeans will be invoked
+                // and the method machine.HandleOutOfBeans will be invoked.
                 machine.MakeCoffee("Coffee 1");
 
                 if (i < 10)
@@ -48,17 +48,17 @@ namespace EventSubscription
 
                 if (i == 5)
                 {
-                    // This coffee doesn't exist: a message should appear
+                    // This coffee doesn't exist: a message should appear.
                     machine.MakeCoffee("Coffee 5");
                 }
             }
         }
 
         /// <summary>
-        /// Event handling for the event VendingMachineNotification
+        /// Event handling for the event VendingMachineNotification.
         /// </summary>
-        /// <param name="vendingMachine">Vending machine that raised the even</param>
-        /// <param name="message">The message that the vending machine sent</param>
+        /// <param name="vendingMachine">Vending machine that raised the event.</param>
+        /// <param name="message">The message that the vending machine sent.</param>
         private static void HandleVendingMachineNotification(VendingMachine vendingMachine, string message)
         {
             Console.WriteLine(message);

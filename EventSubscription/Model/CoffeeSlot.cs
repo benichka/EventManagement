@@ -10,30 +10,30 @@ namespace EventSubscription.Model
     public class CoffeeSlot
     {
         #region statics
-        /// <summary>Default stock level of a coffee to put in a slot</summary>
+        /// <summary>Default stock level of a coffee to put in a slot.</summary>
         private static readonly int defautRefillStockLevel = 15;
 
-        /// <summary>Default minimum stock level</summary>
+        /// <summary>Default minimum stock level.</summary>
         private static readonly int defaultMinimumStockLevel = 5;
         #endregion statics
 
         #region event and delegate
-        /// <summary>Handler for the OutOfBeansHandler event</summary>
+        /// <summary>Handler for the OutOfBeansHandler event.</summary>
         public delegate void OutOfBeansHandler(CoffeeSlot coffeeSlot);
 
-        /// <summary>Event raised when the slot is going low on beans</summary>
+        /// <summary>Event raised when the slot is going low on beans.</summary>
         public event OutOfBeansHandler OutOfBeans;
         #endregion event and delegate
 
         #region properties
-        /// <summary>Number of the coffee slot in the vending machine</summary>
+        /// <summary>Coffee slot's number in the vending machine.</summary>
         public int Number { get; set; }
 
-        /// <summary>Name of the coffee contained in the slot</summary>
+        /// <summary>Name of the coffee contained in the slot.</summary>
         public string CoffeeName { get; private set; }
 
         private Coffee _Coffee;
-        /// <summary>The coffee contained in the slot</summary>
+        /// <summary>The coffee contained in the slot.</summary>
         public Coffee Coffee
         {
             get => _Coffee;
@@ -41,21 +41,21 @@ namespace EventSubscription.Model
             {
                 this._Coffee = value;
 
-                // The coffee slot takes the name of the coffee it contains
+                // The coffee slot takes the name of the coffee it contains.
                 CoffeeName = value.Name;
             }
         }
 
-        /// <summary>Current stock level of beans in the slot</summary>
+        /// <summary>Current stock level of beans in the slot.</summary>
         public int CurrentStockLevel { get; private set; }
 
-        /// <summary>Minimum stock level of beans in the slot the make a coffee</summary>
+        /// <summary>Minimum stock level of beans in the slot the make a coffee.</summary>
         private int MinimumStockLevel { get; set; }
         #endregion properties
 
         #region constructors
         /// <summary>
-        /// Default constructor
+        /// Default constructor.
         /// </summary>
         public CoffeeSlot()
         {
@@ -66,9 +66,9 @@ namespace EventSubscription.Model
         }
 
         /// <summary>
-        /// Default constructor for a single coffee
+        /// Default constructor for a single coffee.
         /// </summary>
-        /// <param name="coffee">The coffee to store in the slot</param>
+        /// <param name="coffee">The coffee to store in the slot.</param>
         public CoffeeSlot(Coffee coffee)
         {
             Number = 0;
@@ -77,11 +77,11 @@ namespace EventSubscription.Model
             MinimumStockLevel = defaultMinimumStockLevel;
         }
 
-        // Other constructors for other properties could be created
+        // Other constructors for other properties could be created.
         #endregion constructors
 
         /// <summary>
-        /// Beans are used to make a coffee
+        /// Beans are used to make a coffee.
         /// </summary>
         /// <exception cref="OutOfBeansException" />
         public void UseBeans()
@@ -108,9 +108,9 @@ namespace EventSubscription.Model
         }
 
         /// <summary>
-        /// Display the coffee slot's information
+        /// Display the coffee slot's information.
         /// </summary>
-        /// <returns>The coffee slot's information</returns>
+        /// <returns>The coffee slot's information.</returns>
         public override string ToString()
         {
             return $"Slot {Number}: " + Coffee.ToString();
