@@ -14,12 +14,13 @@ namespace EventSubscription
 
             // The program subscribes to the event VendingMachineNotification. That way,
             // the program will be notified whenever the machine wants to "speak" to it.
-            machine.VendingMachineNotification += HandleVendingMachineNotification;
+            // TODO: step 2:
+            // make HandleVendingMachineNotification subscribes to the newly instanciated machine notification.
 
             // Fill the machine with coffee!
-            var coffee1 = new Coffee("Coffee 1", "Arusha", "Tanzania", Coffee.CoffeeStrength.Decaf);
-            var coffee2 = new Coffee("Coffee 2", "Bergendal", "Indonesia", Coffee.CoffeeStrength.Standard);
-            var coffee3 = new Coffee("Coffee 3", "Bourbon", "Réunion", Coffee.CoffeeStrength.Strong);
+            var coffee1 = new Coffee("Decaffeinato", "Arabica", "Colombia", Coffee.CoffeeStrength.Decaf);
+            var coffee2 = new Coffee("Classico", "Arabica", "Ethiopia", Coffee.CoffeeStrength.Standard);
+            var coffee3 = new Coffee("Forte", "Robusta", "Réunion", Coffee.CoffeeStrength.Strong);
 
             var slot1 = new CoffeeSlot(coffee1);
             var slot2 = new CoffeeSlot(coffee2);
@@ -39,29 +40,23 @@ namespace EventSubscription
 
                 // At the 10th coffee (the limit is 5 by default), the event OutOfBeans will be raised
                 // and the method machine.HandleOutOfBeans will be invoked.
-                machine.MakeCoffee("Coffee 1");
+                machine.MakeCoffee("Decaffeinato");
 
                 if (i < 10)
                 {
-                    machine.MakeCoffee("Coffee 3");
+                    machine.MakeCoffee("Forte");
                 }
 
                 if (i == 5)
                 {
                     // This coffee doesn't exist: a message should appear.
-                    machine.MakeCoffee("Coffee 5");
+                    machine.MakeCoffee("Speciale");
                 }
             }
         }
 
-        /// <summary>
-        /// Event handling for the event VendingMachineNotification.
-        /// </summary>
-        /// <param name="vendingMachine">Vending machine that raised the event.</param>
-        /// <param name="message">The message that the vending machine sent.</param>
-        private static void HandleVendingMachineNotification(VendingMachine vendingMachine, string message)
-        {
-            Console.WriteLine(message);
-        }
+        // TODO: step 1:
+        // create the handler for the vending machine notification. Call it HandleVendingMachineNotification.
+        // Its only purpose is to write the message that the machine sent to the console.
     }
 }
