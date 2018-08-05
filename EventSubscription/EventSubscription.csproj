@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomEventArgs\VendingMachineNotificationEventArgs.cs" />
     <Compile Include="CustomExceptions\OutOfBeansException.cs" />
     <Compile Include="Model\CoffeeSlot.cs" />
     <Compile Include="Model\Coffee.cs" />

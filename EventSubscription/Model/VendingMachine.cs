@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using EventSubscription.CustomEventArgs;
 using EventSubscription.CustomExceptions;
 
 namespace EventSubscription.Model
@@ -11,10 +12,10 @@ namespace EventSubscription.Model
     public class VendingMachine
     {
         #region event and delegate
-        /// <summary>Handler for the VendingMachineNotificationHandler event.</summary>
-        public delegate void VendingMachineNotificationHandler(VendingMachine vendingMachine, string message);
+        /// <summary>Handler for the VendingMachineNotification event.</summary>
+        public delegate void VendingMachineNotificationHandler(object sender, VendingMachineNotificationEventArgs e);
 
-        /// <summary>Event raised whenener the machine wants to notify its user of something.</summary>
+        /// <summary>Event raised whenener the machine wants to notify the user of something.</summary>
         public event VendingMachineNotificationHandler VendingMachineNotification;
         #endregion event and delegate
 
@@ -26,7 +27,6 @@ namespace EventSubscription.Model
         private int slotCounter;
 
         private List<CoffeeSlot> _CoffeeSlots;
-
         /// <summary>List of coffees that the machine contains.</summary>
         public List<CoffeeSlot> CoffeeSlots
         {
@@ -88,26 +88,34 @@ namespace EventSubscription.Model
                 {
                     selectedCoffee.UseBeans();
 
-                    VendingMachineNotification?.Invoke(this, $"Your coffee {coffeeName} has been made. Enjoy!");
+                    var eventArgs = new VendingMachineNotificationEventArgs() { Message = $"Your coffee {coffeeName} has been made. Enjoy!" };
+                    VendingMachineNotification?.Invoke(this, eventArgs);
                 }
                 catch (OutOfBeansException oobEx)
                 {
-                    VendingMachineNotification?.Invoke(this, oobEx.Message);
+                    var eventArgs = new VendingMachineNotificationEventArgs() { Message = oobEx.Message };
+                    VendingMachineNotification?.Invoke(this, eventArgs);
                 }
             }
             else
             {
-                VendingMachineNotification?.Invoke(this, $"the coffee {coffeeName} is not available in that machine");
+                var eventArgs = new VendingMachineNotificationEventArgs() { Message = $"the coffee {coffeeName} is not available in that machine" };
+                VendingMachineNotification?.Invoke(this, eventArgs);
             }
         }
 
         /// <summary>
         /// Event handling for the event OutOfBeans.
         /// </summary>
-        /// <param name="coffeeSlot">Coffee slot that raised the event.</param>
-        private void HandleOutOfBeans(CoffeeSlot coffeeSlot)
+        /// <param name="sender">Object that raised the event.</param>
+        /// <param name="e">Event arguments that was sent in the event.</param>
+        private void HandleOutOfBeans(object sender, EventArgs e)
         {
-            VendingMachineNotification?.Invoke(this, $"Vending machine {Name}: coffee {coffeeSlot.CoffeeName} reached its minimum level.");
+            // In our case, we know that the sender is a CoffeeSlot with no arguments.
+            var coffeeSlot = (CoffeeSlot)sender;
+
+            var eventArgs = new VendingMachineNotificationEventArgs() { Message = $"Vending machine {Name}: coffee {coffeeSlot.CoffeeName} reached its minimum level." };
+            VendingMachineNotification?.Invoke(this, eventArgs);
         }
 
         /// <summary>
